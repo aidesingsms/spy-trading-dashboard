@@ -420,8 +420,8 @@
         
         <div class="status-bar">
             <div class="status-item">
-                <div class="status-dot"></div>
-                <span>Market: OPEN</span>
+                <div class="status-dot" style="background: #ff4757;"></div>
+                <span>Market: CLOSED (After Hours)</span>
             </div>
             <div class="status-item">
                 <span>📊 VIX: <span id="vix-value">16.49</span></span>
@@ -430,7 +430,35 @@
                 <span>💰 Volume: <span id="volume-value">111.4M</span></span>
             </div>
             <div class="status-item">
-                <span>🕐 Next Update: 5 min</span>
+                <span>🕐 Close: 16:00 ET</span>
+            </div>
+        </div>
+        
+        <div class="card full-width" style="background: rgba(255,71,87,0.1); border: 1px solid rgba(255,71,87,0.3);">
+            <div class="card-title">
+                <span style="font-size: 1.5em;">🌙</span>
+                <span>After-Hours Trading</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div class="level-box">
+                    <div class="level-label">After-Hours Price</div>
+                    <div class="level-value" id="after-hours-price" style="color: #ffd93d;">$735.02</div>
+                </div>
+                <div class="level-box">
+                    <div class="level-label">After-Hours Change</div>
+                    <div class="level-value" id="after-hours-change" style="color: #00ff88;">+$0.70 (+0.10%)</div>
+                </div>
+                <div class="level-box">
+                    <div class="level-label">Market Close</div>
+                    <div class="level-value">$734.32</div>
+                </div>
+                <div class="level-box">
+                    <div class="level-label">Next Open</div>
+                    <div class="level-value">Tomorrow 09:30 ET</div>
+                </div>
+            </div>
+            <div style="margin-top: 15px; text-align: center; font-size: 0.9em; opacity: 0.8;">
+                ⚠️ After-hours prices have lower liquidity and wider spreads. Use for reference only.
             </div>
         </div>
         
@@ -748,21 +776,27 @@
     </div>
     
     <script>
-        // Multi-asset configuration
+        // Multi-asset configuration - CLOSING PRICES (Market Closed)
+        // Last updated: 2026-06-30 16:00 ET (Market Close)
         const assets = {
             SPY: {
                 symbol: "AMEX:SPY",
                 name: "SPY",
                 fullName: "S&P 500 ETF",
-                currentPrice: 735.02,
-                change: 0.70,
-                changePercent: 0.10,
+                currentPrice: 734.32,
+                change: 0.00,
+                changePercent: 0.00,
                 open: 734.32,
                 high: 736.00,
                 low: 732.00,
                 prevClose: 734.32,
                 volume: "111.4M",
                 vix: 16.49,
+                afterHours: 735.02,  // After-hours price
+                afterHoursChange: 0.70,
+                afterHoursChangePercent: 0.10,
+                marketStatus: "CLOSED",
+                lastUpdate: "2026-06-30 16:00 ET",
                 levels: {
                     r3: 740.00, r2: 738.00, r1: 736.00,
                     pivot: 735.00,
@@ -777,15 +811,20 @@
                 symbol: "NASDAQ:QQQ",
                 name: "QQQ",
                 fullName: "Nasdaq-100 ETF",
-                currentPrice: 524.18,
-                change: 1.25,
-                changePercent: 0.24,
+                currentPrice: 522.93,
+                change: 0.00,
+                changePercent: 0.00,
                 open: 522.93,
                 high: 525.50,
                 low: 521.80,
                 prevClose: 522.93,
                 volume: "78.2M",
                 vix: 16.49,
+                afterHours: 524.18,
+                afterHoursChange: 1.25,
+                afterHoursChangePercent: 0.24,
+                marketStatus: "CLOSED",
+                lastUpdate: "2026-06-30 16:00 ET",
                 levels: {
                     r3: 530.00, r2: 528.00, r1: 526.00,
                     pivot: 525.00,
@@ -800,15 +839,20 @@
                 symbol: "NASDAQ:TSLA",
                 name: "TSLA",
                 fullName: "Tesla Inc",
-                currentPrice: 411.84,
-                change: 32.13,
-                changePercent: 8.46,
+                currentPrice: 379.71,
+                change: 0.00,
+                changePercent: 0.00,
                 open: 379.71,
                 high: 415.20,
                 low: 378.50,
                 prevClose: 379.71,
                 volume: "57.6M",
                 vix: 16.49,
+                afterHours: 411.84,
+                afterHoursChange: 32.13,
+                afterHoursChangePercent: 8.46,
+                marketStatus: "CLOSED",
+                lastUpdate: "2026-06-30 16:00 ET",
                 levels: {
                     r3: 425.00, r2: 420.00, r1: 415.00,
                     pivot: 412.00,
@@ -823,15 +867,20 @@
                 symbol: "NASDAQ:NVDA",
                 name: "NVDA",
                 fullName: "NVIDIA Corp",
-                currentPrice: 194.97,
-                change: 2.45,
-                changePercent: 1.27,
+                currentPrice: 192.52,
+                change: 0.00,
+                changePercent: 0.00,
                 open: 192.52,
                 high: 196.80,
                 low: 191.20,
                 prevClose: 192.52,
                 volume: "148.8M",
                 vix: 16.49,
+                afterHours: 194.97,
+                afterHoursChange: 2.45,
+                afterHoursChangePercent: 1.27,
+                marketStatus: "CLOSED",
+                lastUpdate: "2026-06-30 16:00 ET",
                 levels: {
                     r3: 200.00, r2: 198.00, r1: 196.00,
                     pivot: 195.00,
@@ -855,8 +904,18 @@
             document.getElementById('assetName').textContent = asset.name;
             document.getElementById('assetFullName').textContent = asset.fullName;
             
-            // Update price
+            // Update main price display (CLOSING PRICE)
             updatePriceDisplay(asset.currentPrice, asset.change, asset.changePercent);
+            
+            // Update after-hours section
+            const ahPriceEl = document.getElementById('after-hours-price');
+            const ahChangeEl = document.getElementById('after-hours-change');
+            if (ahPriceEl) ahPriceEl.textContent = `$${asset.afterHours.toFixed(2)}`;
+            if (ahChangeEl) {
+                const sign = asset.afterHoursChange >= 0 ? '+' : '';
+                ahChangeEl.textContent = `${sign}$${asset.afterHoursChange.toFixed(2)} (${sign}${asset.afterHoursChangePercent.toFixed(2)}%)`;
+                ahChangeEl.style.color = asset.afterHoursChange >= 0 ? '#00ff88' : '#ff4757';
+            }
             
             // Update levels
             updateLevels(asset.levels);
