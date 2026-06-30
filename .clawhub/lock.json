@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "skills": {
+    "options-analyzer": {
+      "version": "1.0.0",
+      "installedAt": 1781669971918
+    },
+    "options-strategies": {
+      "version": "1.0.0",
+      "installedAt": 1781669982334
+    },
+    "options-trading-brain": {
+      "version": "1.0.15",
+      "installedAt": 1781669998359
+    },
+    "options-payoff": {
+      "version": "1.0.0",
+      "installedAt": 1781670010062
+    },
+    "options-spread-conviction-engine": {
+      "version": "2.2.1",
+      "installedAt": 1781670023354
+    },
+    "options-trading-backtester": {
+      "version": "1.0.15",
+      "installedAt": 1781670040101
+    },
+    "perfect-storm-options-trader-v2": {
+      "version": "1.0.0",
+      "installedAt": 1781670063076
+    },
+    "options-income-engine": {
+      "version": "1.0.0",
+      "installedAt": 1781670100519
+    },
+    "options-strategist": {
+      "version": "1.0.1",
+      "installedAt": 1781670127031
+    },
+    "trading": {
+      "version": "1.0.1",
+      "installedAt": 1781670141769
+    },
+    "trading-coach": {
+      "version": "1.0.0",
+      "installedAt": 1781670163832
+    },
+    "trading-research": {
+      "version": "1.0.0",
+      "installedAt": 1781670177352
+    },
+    "trading-quant": {
+      "version": "1.0.0",
+      "installedAt": 1782783787498
+    },
+    "trading-signal": {
+      "version": "0.1.0",
+      "installedAt": 1781670204962
+    },
+    "agent-stock-pro": {
+      "version": "0.4.0",
+      "installedAt": 1781670215743
+    },
+    "afrexai-construction-estimator": {
+      "version": "1.0.0",
+      "installedAt": 1781699220943
+    },
+    "open-construction-estimate": {
+      "version": "2.0.0",
+      "installedAt": 1781699241936
+    },
+    "trading-analysis-system": {
+      "version": "1.0.0",
+      "installedAt": 1782783747035
+    },
+    "tradingview-screener": {
+      "version": "1.1.0",
+      "installedAt": 1782783757006
+    },
+    "drunk-trading-analyzer": {
+      "version": "0.0.6",
+      "installedAt": 1782783767702
+    },
+    "day-trading-skill": {
+      "version": "1.2.2",
+      "installedAt": 1782783797565
+    }
+  }
+}

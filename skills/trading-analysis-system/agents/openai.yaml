@@ -1,0 +1,7 @@
+interface:
+  display_name: "Trading Analysis System"
+  short_description: "Structured analysis, review, and risk planning"
+  default_prompt: "Use $trading-analysis-system to produce a structured market analysis, scenarios, invalidation levels, execution plan, quality score, and review plan."
+
+policy:
+  allow_implicit_invocation: true

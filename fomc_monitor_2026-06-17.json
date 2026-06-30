@@ -1,0 +1,62 @@
+{
+  "ticker": "SPY",
+  "date": "2026-06-17",
+  "event": "FOMC",
+  "event_time": "14:00",
+  "strategy": "Pre-FOMC Entry",
+  "entry_window": {
+    "start": "10:30",
+    "end": "13:30"
+  },
+  "close_time": "15:00",
+  "levels": {
+    "resistance": [752.00, 753.50, 755.00, 760.00],
+    "support": [750.00, 749.50, 748.00, 745.00, 740.00],
+    "pivot": 751.00
+  },
+  "vix_levels": {
+    "low": 18,
+    "normal": 22,
+    "high": 25
+  },
+  "volume_threshold": {
+    "min_1030": 20000000,
+    "min_1130": 30000000,
+    "min_1230": 40000000
+  },
+  "rsi_levels": {
+    "oversold": 30,
+    "neutral_low": 45,
+    "neutral_high": 55,
+    "overbought": 70
+  },
+  "strategies": {
+    "bullish": {
+      "condition": "SPY > 753.50 with volume",
+      "primary": "Long Call 755",
+      "alternative": "Bull Call Spread 753/758",
+      "max_risk": "3% portfolio"
+    },
+    "bearish": {
+      "condition": "SPY < 749.50 with volume",
+      "primary": "Long Put 748",
+      "alternative": "Bear Put Spread 750/745",
+      "max_risk": "3% portfolio"
+    },
+    "neutral": {
+      "condition": "SPY 750-752 range",
+      "primary": "Long Strangle 747/755",
+      "alternative": "NO TRADE",
+      "max_risk": "2% portfolio"
+    }
+  },
+  "alerts": {
+    "entry_signal": true,
+    "stop_loss": true,
+    "profit_target": true,
+    "fomc_reminder": true,
+    "close_reminder": true
+  },
+  "status": "active",
+  "last_update": "2026-06-17T11:57:00Z"
+}

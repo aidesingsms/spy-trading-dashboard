@@ -1,0 +1,14 @@
+📈 ALERTA SPY [LONG]
+📰 Análisis: Precio cerca de soporte $744.33
+💰 Entrada: $746.59
+🎯 Target: $748.23
+🛑 Stop: $740.61
+⏰ Horario: 2026-06-19 16:46:21
+📊 Confianza: Media
+
+📊 Indicadores:
+• RSI(14): 67.68
+• MACD: -0.8265 (Hist: 0.2365)
+• MA20: $746.38 | MA50: $750.38
+• Soporte: $744.33 | Resistencia: $748.23
+• Volumen: 11,540,450

@@ -1,0 +1,60 @@
+{
+  "market_analysis_1137am": {
+    "date": "2026-06-17",
+    "time": "11:37 AM ET",
+    "spy_price": 749.81,
+    "change": -0.07,
+    "range": "747.85 - 752.15",
+    "volume": "15.6M (25% promedio)",
+    "vwap": 749.55,
+    "fomc_time_remaining": "2h 23min"
+  },
+  "technical_analysis": {
+    "trend": "Bajista corto plazo",
+    "support_levels": [747.85, 745.00, 742.00],
+    "resistance_levels": [752.15, 753.50, 755.00],
+    "key_observation": "Tocó 747.85 (cerca strike anterior), rebotó débil"
+  },
+  "recommendation": {
+    "primary": "NO ABRIR NUEVA POSICIÓN AHORA",
+    "reasons": [
+      "IV inflada pre-FOMC",
+      "IV crush post-evento destruye valor",
+      "Mejor esperar dirección post-FOMC",
+      "2h 20min es muy poco tiempo"
+    ],
+    "plan_post_fomc": {
+      "1400_1415": "Esperar reacción inicial",
+      "1430": "Evaluar dirección clara",
+      "1445": "Entrar en dirección del movimiento",
+      "1500": "Cerrar si no hay momentum"
+    }
+  },
+  "possible_entries_post_fomc": {
+    "put_745": {
+      "strike": 745,
+      "expiration": "20-Jun",
+      "entry_estimate": "1.80-2.20",
+      "target": "3.50-5.00",
+      "stop": "1.00",
+      "risk": "80-120",
+      "reward": "150-300"
+    },
+    "call_752": {
+      "strike": 752,
+      "expiration": "20-Jun",
+      "entry_estimate": "1.50-1.80",
+      "target": "3.00-4.00",
+      "stop": "0.80",
+      "risk": "70-100",
+      "reward": "120-220"
+    },
+    "iron_condor": {
+      "structure": "Sell 742P/Buy 740P + Sell 755C/Buy 757C",
+      "credit": "~0.80",
+      "risk": "120",
+      "reward": "80",
+      "condition": "SPY se queda 742-755"
+    }
+  }
+}

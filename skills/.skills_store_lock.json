@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "skills": {
+    "trading-analysis-system": {
+      "name": "交易分析系统",
+      "zip_url": "https://api.skillhub.cn/api/v1/download?slug=trading-analysis-system",
+      "source": "community",
+      "version": "1.0.0",
+      "installedAt": "2026-06-30T01:42:27Z"
+    },
+    "tradingview-screener": {
+      "name": "TradingView Screener",
+      "zip_url": "https://api.skillhub.cn/api/v1/download?slug=tradingview-screener",
+      "source": "community",
+      "version": "1.1.0",
+      "installedAt": "2026-06-30T01:42:36Z"
+    },
+    "drunk-trading-analyzer": {
+      "name": "Trading Analyzer",
+      "zip_url": "https://api.skillhub.cn/api/v1/download?slug=drunk-trading-analyzer",
+      "source": "community",
+      "version": "0.0.6",
+      "installedAt": "2026-06-30T01:42:47Z"
+    },
+    "trading-quant": {
+      "name": "Trading Quant",
+      "zip_url": "https://api.skillhub.cn/api/v1/download?slug=trading-quant",
+      "source": "community",
+      "version": "1.0.0",
+      "installedAt": "2026-06-30T01:43:07Z"
+    },
+    "day-trading-skill": {
+      "name": "Day Trading Investor Pro",
+      "zip_url": "https://api.skillhub.cn/api/v1/download?slug=day-trading-skill",
+      "source": "community",
+      "version": "1.2.2",
+      "installedAt": "2026-06-30T01:43:17Z"
+    }
+  }
+}

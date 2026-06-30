@@ -1,0 +1,29 @@
+{
+  "stm": {
+    "count": 16,
+    "last_ts": "2026-06-22T16:02:16.329073",
+    "last_sessions": 2,
+    "last_messages": 70,
+    "last_chars": 6200
+  },
+  "diary": {
+    "count": 21,
+    "last_ts": "2026-06-28T03:59:00.038331",
+    "last_day": 2,
+    "last_sessions": 2,
+    "last_messages": 124,
+    "last_filename": "day2-2026-06-18-he_asked_me_to_remember.md",
+    "last_latency_s": 32.2,
+    "last_skip": "no_sessions_today"
+  },
+  "compact": {
+    "count": 21,
+    "last_ts": "2026-06-28T03:59:00.397475",
+    "last_invoke": 8,
+    "last_sessions": 2,
+    "last_messages": 84,
+    "last_latency_s": 6.5,
+    "last_model": "k2p6",
+    "last_skip": "stm_hash_unchanged"
+  }
+}

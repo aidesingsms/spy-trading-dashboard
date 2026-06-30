@@ -1,0 +1,27 @@
+{
+  "position": {
+    "ticker": "SPY",
+    "type": "PUT",
+    "strike": 747,
+    "entry_price": 1.67,
+    "entry_date": "2026-06-16",
+    "contracts": 1
+  },
+  "market_data": {
+    "date": "2026-06-17",
+    "close_yesterday": 750.33,
+    "premarket": 750.97,
+    "change_premarket": 0.62,
+    "change_premarket_pct": 0.08,
+    "range_yesterday": "749.88 - 755.44",
+    "vix_estimate": 20
+  },
+  "analysis": {
+    "current_status": "out_of_the_money",
+    "intrinsic_value": 0,
+    "time_value": 1.67,
+    "days_to_expiration": 3,
+    "fomc_today": true,
+    "fomc_time": "14:00"
+  }
+}

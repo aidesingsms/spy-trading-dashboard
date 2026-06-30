@@ -1,0 +1,35 @@
+{
+  "market_analysis_post_fomc": {
+    "date": "2026-06-17",
+    "time": "2:44 PM ET",
+    "spy_price": 749.86,
+    "change": -0.06,
+    "range": "743.47 - 752.15",
+    "volume": "36.6M (57% promedio)",
+    "bid_ask": "745.72/745.79",
+    "fomc_status": "Completado"
+  },
+  "post_fomc_movement": {
+    "minimum": 743.47,
+    "rebound": 749.86,
+    "rebound_amount": 6.39,
+    "volatility": "Extrema",
+    "volume_surge": true
+  },
+  "technical": {
+    "support_strong": 743.47,
+    "resistance": 752.15,
+    "pivot": 747.81,
+    "pattern": "Doble fondo en $743-744",
+    "volume_confirmation": "Compra en rebote"
+  },
+  "recommendation": {
+    "primary": "ESPERAR 15 MIN (3:00 PM)",
+    "conditions": {
+      "spy_above_748": "CALL 750",
+      "spy_below_745": "PUT 743",
+      "spy_745_748": "NO OPERAR"
+    },
+    "time_to_close": "76 minutos"
+  }
+}

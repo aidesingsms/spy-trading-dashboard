@@ -1,0 +1,33 @@
+{
+  "project": {
+    "name": "Sarasota Multifamily Electrical Estimate",
+    "location": {
+      "city": "Sarasota",
+      "state": "FL",
+      "location_factor": 0.95
+    },
+    "type": "Multi-Family Residential",
+    "delivery": "design-bid-build",
+    "buildings": 5,
+    "floors_per_building": 4,
+    "units_per_building": 80,
+    "total_units": 400,
+    "gross_sf_per_building": 80000,
+    "total_gross_sf": 400000,
+    "amenities": ["clubhouse", "site_lighting", "parking"],
+    "finish_level": "basic",
+    "estimate_type": "detailed",
+    "base_date": "2026-06-17",
+    "escalation_rate": 0.04
+  },
+  "scope": {
+    "description": "5 buildings, 4 stories each, 80 units per building, clubhouse, site lighting, basic finishes",
+    "stories": 4,
+    "site_acres": 15
+  },
+  "schedule": {
+    "construction_start": "2026-09-01",
+    "substantial_completion": "2027-12-01",
+    "duration_months": 15
+  }
+}

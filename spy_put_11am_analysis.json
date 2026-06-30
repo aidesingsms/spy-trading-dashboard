@@ -1,0 +1,31 @@
+{
+  "position": {
+    "ticker": "SPY",
+    "type": "PUT",
+    "strike": 747,
+    "entry_price": 1.67,
+    "entry_date": "2026-06-16",
+    "contracts": 1
+  },
+  "market_data_11am": {
+    "date": "2026-06-17",
+    "time": "11:18 AM ET",
+    "spy_price": 749.98,
+    "change": -0.04,
+    "volume": "26.36K última vela",
+    "pattern": "Rechazo en $752, rango $749-$752"
+  },
+  "technical_analysis": {
+    "resistance": 752.00,
+    "support": 749.00,
+    "trend": "Bajista corto plazo",
+    "volume_trend": "Decreciente",
+    "rejection_at_752": true
+  },
+  "recommendation_11am": {
+    "primary": "MANTENER con stop",
+    "stop_loss": "SPY > $751.50 o PUT < $1.00",
+    "target": "PUT vale $2.50+ (SPY < $747)",
+    "time_to_fomc": "2h 42min"
+  }
+}
