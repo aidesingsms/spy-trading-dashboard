@@ -900,9 +900,9 @@
                 }
             },
             BTC: {
-                symbol: "BINANCE:BTCUSDT",
+                symbol: "COINBASE:BTCUSD",
                 name: "BTC",
-                fullName: "Bitcoin / USDT",
+                fullName: "Bitcoin / USD",
                 currentPrice: 59837.00,
                 change: -343.50,
                 changePercent: -0.57,
@@ -940,17 +940,25 @@
             document.getElementById('assetName').textContent = asset.name;
             document.getElementById('assetFullName').textContent = asset.fullName;
             
-            // Update main price display (CLOSING PRICE)
+            // Update main price display (CLOSING PRICE or CURRENT for 24/7)
             updatePriceDisplay(asset.currentPrice, asset.change, asset.changePercent);
             
-            // Update after-hours section
-            const ahPriceEl = document.getElementById('after-hours-price');
-            const ahChangeEl = document.getElementById('after-hours-change');
-            if (ahPriceEl) ahPriceEl.textContent = `$${asset.afterHours.toFixed(2)}`;
-            if (ahChangeEl) {
-                const sign = asset.afterHoursChange >= 0 ? '+' : '';
-                ahChangeEl.textContent = `${sign}$${asset.afterHoursChange.toFixed(2)} (${sign}${asset.afterHoursChangePercent.toFixed(2)}%)`;
-                ahChangeEl.style.color = asset.afterHoursChange >= 0 ? '#00ff88' : '#ff4757';
+            // Update after-hours section (only for stocks)
+            const ahSection = document.querySelector('.card[style*="rgba(255,71,87,0.1)"]');
+            if (ahSection) {
+                if (asset.marketStatus === "24/7 OPEN") {
+                    ahSection.style.display = 'none';
+                } else {
+                    ahSection.style.display = 'block';
+                    const ahPriceEl = document.getElementById('after-hours-price');
+                    const ahChangeEl = document.getElementById('after-hours-change');
+                    if (ahPriceEl && asset.afterHours) ahPriceEl.textContent = `$${asset.afterHours.toFixed(2)}`;
+                    if (ahChangeEl && asset.afterHoursChange !== null) {
+                        const sign = asset.afterHoursChange >= 0 ? '+' : '';
+                        ahChangeEl.textContent = `${sign}$${asset.afterHoursChange.toFixed(2)} (${sign}${asset.afterHoursChangePercent.toFixed(2)}%)`;
+                        ahChangeEl.style.color = asset.afterHoursChange >= 0 ? '#00ff88' : '#ff4757';
+                    }
+                }
             }
             
             // Update levels
@@ -967,6 +975,19 @@
             
             // Update volume in status bar
             document.getElementById('volume-value').textContent = asset.volume;
+            
+            // Update market status in status bar
+            const statusDot = document.querySelector('.status-dot');
+            const statusText = document.querySelector('.status-item span');
+            if (statusDot && statusText) {
+                if (asset.marketStatus === "24/7 OPEN") {
+                    statusDot.style.background = '#00ff88';
+                    statusText.textContent = 'Market: 24/7 OPEN';
+                } else {
+                    statusDot.style.background = '#ff4757';
+                    statusText.textContent = 'Market: CLOSED (After Hours)';
+                }
+            }
             
             // Update active button
             document.querySelectorAll('.asset-btn').forEach(btn => {

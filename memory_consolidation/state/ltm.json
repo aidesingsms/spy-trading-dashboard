@@ -1,12 +1,12 @@
 {
-  "invoke_time": 8,
+  "invoke_time": 9,
   "ltm": {
     "identity": "User identifies as Orlando Osorio, dueño of Aidesing Smart Solutions. This self-identification appears in system prompts and configuration contexts rather than natural conversation — treated as claimed but not independently verified.",
-    "work_method": "Configures Telegram bot integrations personally, including API token handling. Expects persistent cross-session configuration memory. Uses the system for real-time financial market monitoring with a dashboard interface. Rapidly interleaves bot configuration and market analysis without closure. Pastes sensitive credentials repeatedly in chat, indicating either copy-paste workflow, urgency, or limited concern for token exposure. Recently expanded watchlist to include QQQ, Tesla, and NVDA alongside existing positions. Questions price discrepancies between real-time and closing prices, suggesting some confusion about after-hours or pre-market data mechanics. Troubleshoots by directing the system to 'revisa los archivos' rather than describing symptoms.",
+    "work_method": "Configures Telegram bot integrations personally, including API token handling. Expects persistent cross-session configuration memory. Uses the system for real-time financial market monitoring with a dashboard interface. Rapidly interleaves bot configuration and market analysis without closure. Pastes sensitive credentials repeatedly in chat, indicating either copy-paste workflow, urgency, or limited concern for token exposure. Recently expanded watchlist to include QQQ, Tesla, NVDA, and Bitcoin alongside existing positions. Questions price discrepancies between real-time and closing prices, suggesting some confusion about after-hours or pre-market data mechanics. Troubleshoots by directing the system to 'revisa los archivos' rather than describing symptoms.",
     "communication": "Primarily Spanish-speaking with occasional English technical terms. Direct, imperative style: short commands ('Analiza', 'Configura', 'dame', 'agrega'). Drops accents and misspells under pressure ('confifurar'). Uses 'Hola' as minimal greeting before immediate task demands. No acknowledgment or feedback on responses — purely transactional. Expresses frustration bluntly when systems fail ('No funciona'). Brief confirmations when satisfied ('Listo ya veo el dashboard'). Asks verification questions about data freshness ('esos datos son en tiempo real correcto') rather than assuming system reliability.",
-    "temporal": "Actively managing a financial monitoring dashboard with real-time data feeds. Expanded watchlist to include QQQ, Tesla, and NVDA. Recently questioned why prices differ from closing values during market closure, indicating active engagement with after-hours data interpretation. No recent evidence of SPCX 736 breakout monitoring or TradingView integration inquiries.",
+    "temporal": "Actively managing a financial monitoring dashboard with real-time data feeds. Expanded watchlist to include QQQ, Tesla, NVDA, and Bitcoin. Recently questioned why prices differ from closing values during market closure, indicating active engagement with after-hours data interpretation.",
     "taste": null
   },
-  "generated_at": "2026-06-30T03:33:15.741128",
-  "stm_hash": "f29e853cc72401bacd148ff0decfb88b"
+  "generated_at": "2026-06-30T03:43:58.325810",
+  "stm_hash": "6635564981cb3eacb3b25732f3d365f9"
 }
