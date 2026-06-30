@@ -102,6 +102,11 @@
             border-color: #0984e3;
         }
         
+        .asset-btn.btc.active {
+            background: linear-gradient(135deg, #f7931a 0%, #ffad33 100%);
+            border-color: #f7931a;
+        }
+        
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -415,6 +420,9 @@
             </button>
             <button class="asset-btn nvda" id="btn-NVDA" onclick="switchAsset('NVDA')">
                 🎮 NVDA
+            </button>
+            <button class="asset-btn btc" id="btn-BTC" onclick="switchAsset('BTC')">
+                ₿ BTC
             </button>
         </div>
         
@@ -890,6 +898,34 @@
                     rsi: 55.8, macd: 1.85, sma50: 188.40, sma200: 175.60,
                     bollUpper: 202.00, bollLower: 186.00, atr: 3.20
                 }
+            },
+            BTC: {
+                symbol: "BINANCE:BTCUSDT",
+                name: "BTC",
+                fullName: "Bitcoin / USDT",
+                currentPrice: 59837.00,
+                change: -343.50,
+                changePercent: -0.57,
+                open: 60180.50,
+                high: 60520.00,
+                low: 59480.00,
+                prevClose: 60180.50,
+                volume: "491.2M",
+                vix: null,
+                afterHours: null,
+                afterHoursChange: null,
+                afterHoursChangePercent: null,
+                marketStatus: "24/7 OPEN",
+                lastUpdate: "2026-06-30 22:33 ET",
+                levels: {
+                    r3: 61500.00, r2: 61000.00, r1: 60500.00,
+                    pivot: 60000.00,
+                    s1: 59500.00, s2: 59000.00, s3: 58500.00
+                },
+                indicators: {
+                    rsi: 42.3, macd: -1.25, sma50: 61200.00, sma200: 58500.00,
+                    bollUpper: 62500.00, bollLower: 57500.00, atr: 850.00
+                }
             }
         };
         
@@ -1022,6 +1058,16 @@
                     puts: [
                         { name: 'PUT #1 - Reversión Post-Rally', entry: 418.00, stop: 425.00, target: 400.00, rr: '1:2.6', prob: 42 },
                         { name: 'PUT #2 - Fallo en Resistencia', entry: 420.00, stop: 425.00, target: 405.00, rr: '1:3', prob: 40 }
+                    ]
+                },
+                BTC: {
+                    calls: [
+                        { name: 'CALL #1 - Ruptura Alcista', entry: 60500.00, stop: 59800.00, target: 61500.00, rr: '1:1.4', prob: 48 },
+                        { name: 'CALL #2 - Rebote en Soporte', entry: 59500.00, stop: 59000.00, target: 61000.00, rr: '1:3', prob: 45 }
+                    ],
+                    puts: [
+                        { name: 'PUT #1 - Ruptura Bajista', entry: 59400.00, stop: 60100.00, target: 58500.00, rr: '1:1.3', prob: 52 },
+                        { name: 'PUT #2 - Rechazo en Resistencia', entry: 60300.00, stop: 60800.00, target: 59000.00, rr: '1:2.6', prob: 50 }
                     ]
                 },
                 NVDA: {
