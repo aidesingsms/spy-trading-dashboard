@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Enhanced Market Monitor with real-time data fetching
-Uses TradingView data via tvscreener
+Enhanced Market Monitor with Range Filter Integration
+Uses TradingView data via tvscreener + Range Filter signals
 """
 
 import json
@@ -21,6 +21,8 @@ class EnhancedMarketMonitor:
         self.last_alerts = {}
         self.alert_cooldown = 300  # 5 minutes
         self.data_file = '/tmp/market_data.json'
+        self.filt_values = {}
+        self.prev_prices = {}
         
     def fetch_tradingview_data(self, symbol):
         """Fetch data from TradingView screener"""
@@ -79,6 +81,101 @@ print("{{\"price\": 59837.00, \"change\": -0.57, \"volume\": 491200000}}")
         
         return market_open <= now <= market_close
     
+    def analyze_range_filter(self, asset_key, data):
+        """Analyze using Range Filter logic"""
+        signals = []
+        
+        price = data['price']
+        prev_price = self.prev_prices.get(asset_key, price)
+        
+        # Range Filter parameters by asset
+        rf_params = {
+            'BTC': {'per': 100, 'mult': 3.0, 'threshold': 0.02},
+            'SPY': {'per': 50, 'mult': 2.5, 'threshold': 0.015},
+            'QQQ': {'per': 50, 'mult': 2.5, 'threshold': 0.015},
+            'TSLA': {'per': 30, 'mult': 2.0, 'threshold': 0.025},
+            'NVDA': {'per': 40, 'mult': 2.5, 'threshold': 0.02}
+        }
+        
+        params = rf_params.get(asset_key, {'per': 50, 'mult': 2.5, 'threshold': 0.02})
+        
+        # Calculate smooth range (simplified)
+        price_change = abs(price - prev_price)
+        smooth_range = price_change * params['mult']
+        
+        # Initialize filter
+        if asset_key not in self.filt_values:
+            self.filt_values[asset_key] = price
+        
+        prev_filt = self.filt_values[asset_key]
+        
+        # Update filter (Range Filter logic)
+        if price > prev_filt:
+            filt = max(prev_filt, price - smooth_range)
+        else:
+            filt = min(prev_filt, price + smooth_range)
+        
+        self.filt_values[asset_key] = filt
+        self.prev_prices[asset_key] = price
+        
+        # Determine trend
+        upward = filt > prev_filt
+        downward = filt < prev_filt
+        
+        # Generate signals based on Range Filter
+        if asset_key == 'BTC':
+            # LONG: Price crosses above filter with upward trend
+            if price > filt and prev_price <= prev_filt and upward:
+                signals.append({
+                    'type': 'LONG',
+                    'strength': 'STRONG',
+                    'reason': f'🔥 Range Filter: Precio ${price:.2f} cruzó ARRIBA del filtro ${filt:.2f} con tendencia ALCISTA',
+                    'entry': price,
+                    'stop': price * 0.98,
+                    'target': price * 1.04,
+                    'risk_reward': 2.0,
+                    'indicator': 'Range Filter'
+                })
+            # SHORT: Price crosses below filter with downward trend
+            elif price < filt and prev_price >= prev_filt and downward:
+                signals.append({
+                    'type': 'SHORT',
+                    'strength': 'STRONG',
+                    'reason': f'🔥 Range Filter: Precio ${price:.2f} cruzó ABAJO del filtro ${filt:.2f} con tendencia BAJISTA',
+                    'entry': price,
+                    'stop': price * 1.02,
+                    'target': price * 0.96,
+                    'risk_reward': 2.0,
+                    'indicator': 'Range Filter'
+                })
+        else:
+            # CALL: Price crosses above filter
+            if price > filt and prev_price <= prev_filt and upward:
+                signals.append({
+                    'type': 'CALL',
+                    'strength': 'STRONG',
+                    'reason': f'🔥 Range Filter: Precio ${price:.2f} cruzó ARRIBA del filtro ${filt:.2f} con tendencia ALCISTA',
+                    'entry': price * 1.001,
+                    'stop': price * 0.995,
+                    'target': price * 1.015,
+                    'risk_reward': 2.5,
+                    'indicator': 'Range Filter'
+                })
+            # PUT: Price crosses below filter
+            elif price < filt and prev_price >= prev_filt and downward:
+                signals.append({
+                    'type': 'PUT',
+                    'strength': 'STRONG',
+                    'reason': f'🔥 Range Filter: Precio ${price:.2f} cruzó ABAJO del filtro ${filt:.2f} con tendencia BAJISTA',
+                    'entry': price * 0.999,
+                    'stop': price * 1.005,
+                    'target': price * 0.985,
+                    'risk_reward': 2.5,
+                    'indicator': 'Range Filter'
+                })
+        
+        return signals
+    
     def analyze_conditions(self, asset_key, data):
         """Analyze technical conditions and generate signals"""
         signals = []
@@ -88,50 +185,36 @@ print("{{\"price\": 59837.00, \"change\": -0.57, \"volume\": 491200000}}")
         macd = data['macd']
         change = data['change']
         
-        # BTC Analysis - LONG/SHORT
+        # Range Filter Analysis (Primary)
+        rf_signals = self.analyze_range_filter(asset_key, data)
+        signals.extend(rf_signals)
+        
+        # RSI + MACD Analysis (Secondary/Confirmation)
         if asset_key == 'BTC':
-            # LONG conditions
+            # LONG conditions (RSI + MACD confirmation)
             if rsi < 35 and macd > -2:
                 signals.append({
                     'type': 'LONG',
-                    'strength': 'STRONG',
-                    'reason': f'RSI oversold ({rsi:.1f}) + MACD recovering ({macd:.2f})',
+                    'strength': 'MODERATE',
+                    'reason': f'RSI oversold ({rsi:.1f}) + MACD recovering ({macd:.2f}) - Confirmación',
                     'entry': price * 0.995,
                     'stop': price * 0.98,
                     'target': price * 1.03,
-                    'risk_reward': 2.0
-                })
-            elif rsi < 40 and change > -1:
-                signals.append({
-                    'type': 'LONG',
-                    'strength': 'MODERATE',
-                    'reason': f'RSI approaching oversold ({rsi:.1f})',
-                    'entry': price * 0.998,
-                    'stop': price * 0.985,
-                    'target': price * 1.025,
-                    'risk_reward': 1.9
+                    'risk_reward': 2.0,
+                    'indicator': 'RSI+MACD'
                 })
             
             # SHORT conditions
             elif rsi > 70 and macd < 2:
                 signals.append({
                     'type': 'SHORT',
-                    'strength': 'STRONG',
-                    'reason': f'RSI overbought ({rsi:.1f}) + MACD weakening ({macd:.2f})',
+                    'strength': 'MODERATE',
+                    'reason': f'RSI overbought ({rsi:.1f}) + MACD weakening ({macd:.2f}) - Confirmación',
                     'entry': price * 1.005,
                     'stop': price * 1.02,
                     'target': price * 0.97,
-                    'risk_reward': 2.0
-                })
-            elif rsi > 65 and change > 2:
-                signals.append({
-                    'type': 'SHORT',
-                    'strength': 'MODERATE',
-                    'reason': f'RSI approaching overbought ({rsi:.1f})',
-                    'entry': price * 1.002,
-                    'stop': price * 1.015,
-                    'target': price * 0.975,
-                    'risk_reward': 1.8
+                    'risk_reward': 2.0,
+                    'indicator': 'RSI+MACD'
                 })
         
         # Stock Analysis - CALL/PUT
@@ -140,44 +223,26 @@ print("{{\"price\": 59837.00, \"change\": -0.57, \"volume\": 491200000}}")
             if rsi < 35 and macd > -0.5:
                 signals.append({
                     'type': 'CALL',
-                    'strength': 'STRONG',
-                    'reason': f'RSI oversold ({rsi:.1f}) + MACD positive ({macd:.2f})',
+                    'strength': 'MODERATE',
+                    'reason': f'RSI oversold ({rsi:.1f}) + MACD positive ({macd:.2f}) - Confirmación',
                     'entry': price * 1.002,
                     'stop': price * 0.995,
                     'target': price * 1.015,
-                    'risk_reward': 2.1
-                })
-            elif rsi < 42 and macd > 0:
-                signals.append({
-                    'type': 'CALL',
-                    'strength': 'MODERATE',
-                    'reason': f'RSI low ({rsi:.1f}) + MACD positive ({macd:.2f})',
-                    'entry': price * 1.001,
-                    'stop': price * 0.993,
-                    'target': price * 1.012,
-                    'risk_reward': 1.7
+                    'risk_reward': 2.1,
+                    'indicator': 'RSI+MACD'
                 })
             
             # PUT conditions
             elif rsi > 70 and macd < 0.5:
                 signals.append({
                     'type': 'PUT',
-                    'strength': 'STRONG',
-                    'reason': f'RSI overbought ({rsi:.1f}) + MACD negative ({macd:.2f})',
+                    'strength': 'MODERATE',
+                    'reason': f'RSI overbought ({rsi:.1f}) + MACD negative ({macd:.2f}) - Confirmación',
                     'entry': price * 0.998,
                     'stop': price * 1.005,
                     'target': price * 0.985,
-                    'risk_reward': 2.1
-                })
-            elif rsi > 62 and macd < 0:
-                signals.append({
-                    'type': 'PUT',
-                    'strength': 'MODERATE',
-                    'reason': f'RSI high ({rsi:.1f}) + MACD negative ({macd:.2f})',
-                    'entry': price * 0.999,
-                    'stop': price * 1.003,
-                    'target': price * 0.988,
-                    'risk_reward': 1.8
+                    'risk_reward': 2.1,
+                    'indicator': 'RSI+MACD'
                 })
         
         return signals
@@ -210,13 +275,19 @@ print("{{\"price\": 59837.00, \"change\": -0.57, \"volume\": 491200000}}")
                 'WEAK': '👀'
             }
             
+            indicator_emoji = {
+                'Range Filter': '🎯',
+                'RSI+MACD': '📊'
+            }
+            
             message = f"""{emoji_map.get(signal['type'], '⚡')} **SEÑAL DE ENTRADA {signal['type']}** {emoji_map.get(signal['type'], '⚡')}
 
 **Activo:** {asset_key}
 **Precio Actual:** ${price:.2f}
 **Fuerza:** {strength_emoji.get(signal['strength'], '')} {signal['strength']}
+**Indicador:** {indicator_emoji.get(signal.get('indicator', ''), '')} {signal.get('indicator', 'Análisis Técnico')}
 
-📊 **Análisis Técnico:**
+📊 **Análisis:**
 {signal['reason']}
 
 💰 **Niveles de Entrada:**
@@ -279,7 +350,7 @@ print("{{\"price\": 59837.00, \"change\": -0.57, \"volume\": 491200000}}")
     def run_monitoring(self):
         """Run full monitoring cycle"""
         print(f"\n{'='*70}")
-        print(f"🤖 AIDESING AI - MARKET MONITOR")
+        print(f"🤖 AIDESING AI - MARKET MONITOR (Range Filter Edition)")
         print(f"⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ET")
         print(f"{'='*70}\n")
         
@@ -317,10 +388,10 @@ print("{{\"price\": 59837.00, \"change\": -0.57, \"volume\": 491200000}}")
                 print(f"   🚨 {len(signals)} SEÑAL(ES) DETECTADA(S)!")
                 
                 for signal in signals:
-                    signal_key = f"{asset_key}_{signal['type']}"
+                    signal_key = f"{asset_key}_{signal['type']}_{signal.get('indicator', '')}"
                     
                     if self.should_send_alert(signal_key):
-                        print(f"   📤 Enviando alerta {signal['type']}...")
+                        print(f"   📤 Enviando alerta {signal['type']} ({signal.get('indicator', '')})...")
                         success = self.send_telegram_alert(signal, asset_key, price)
                         
                         if success:
