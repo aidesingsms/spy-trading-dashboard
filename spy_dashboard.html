@@ -943,6 +943,26 @@
             // Update main price display (CLOSING PRICE or CURRENT for 24/7)
             updatePriceDisplay(asset.currentPrice, asset.change, asset.changePercent);
             
+            // Update Open, High, Low, PrevClose for the selected asset
+            const levelBoxes = document.querySelectorAll('.levels-grid .level-box');
+            if (levelBoxes.length >= 4) {
+                // Open
+                const openEl = levelBoxes[0].querySelector('.level-value');
+                if (openEl) openEl.textContent = `$${asset.open.toFixed(2)}`;
+                
+                // High
+                const highEl = levelBoxes[1].querySelector('.level-value');
+                if (highEl) highEl.textContent = `$${asset.high.toFixed(2)}`;
+                
+                // Low
+                const lowEl = levelBoxes[2].querySelector('.level-value');
+                if (lowEl) lowEl.textContent = `$${asset.low.toFixed(2)}`;
+                
+                // Prev Close
+                const prevCloseEl = levelBoxes[3].querySelector('.level-value');
+                if (prevCloseEl) prevCloseEl.textContent = `$${asset.prevClose.toFixed(2)}`;
+            }
+            
             // Update after-hours section (only for stocks)
             const ahSection = document.querySelector('.card[style*="rgba(255,71,87,0.1)"]');
             if (ahSection) {
