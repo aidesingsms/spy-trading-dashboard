@@ -97,14 +97,36 @@
             border-color: #e17055;
         }
         
-        .asset-btn.nvda.active {
-            background: linear-gradient(135deg, #0984e3 0%, #74b9ff 100%);
-            border-color: #0984e3;
+        .timeframe-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            flex-wrap: wrap;
         }
         
-        .asset-btn.btc.active {
-            background: linear-gradient(135deg, #f7931a 0%, #ffad33 100%);
-            border-color: #f7931a;
+        .timeframe-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .timeframe-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .timeframe-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
         
         .main-grid {
@@ -541,6 +563,16 @@
             <div class="card-title">
                 <span style="font-size: 1.5em;">📊</span>
                 <span>Gráfico en Tiempo Real - TradingView</span>
+            </div>
+            <div class="timeframe-selector">
+                <button class="timeframe-btn" id="tf-1" onclick="changeTimeframe('1')">1m</button>
+                <button class="timeframe-btn active" id="tf-5" onclick="changeTimeframe('5')">5m</button>
+                <button class="timeframe-btn" id="tf-15" onclick="changeTimeframe('15')">15m</button>
+                <button class="timeframe-btn" id="tf-30" onclick="changeTimeframe('30')">30m</button>
+                <button class="timeframe-btn" id="tf-60" onclick="changeTimeframe('60')">1h</button>
+                <button class="timeframe-btn" id="tf-240" onclick="changeTimeframe('240')">4h</button>
+                <button class="timeframe-btn" id="tf-D" onclick="changeTimeframe('D')">1D</button>
+                <button class="timeframe-btn" id="tf-W" onclick="changeTimeframe('W')">1W</button>
             </div>
             <div id="tradingview_chart" style="width: 100%; height: 500px; border-radius: 10px; overflow: hidden;"></div>
         </div>
@@ -991,7 +1023,7 @@
             updateSignals(assetKey);
             
             // Update TradingView chart
-            updateTradingViewChart(asset.symbol);
+            updateTradingViewChart(asset.symbol, currentTimeframe);
             
             // Update volume in status bar
             document.getElementById('volume-value').textContent = asset.volume;
@@ -1192,7 +1224,25 @@
             }
         }
         
-        function updateTradingViewChart(symbol) {
+        let currentTimeframe = '5';
+        
+        // Change timeframe function
+        function changeTimeframe(tf) {
+            currentTimeframe = tf;
+            const asset = assets[currentAsset];
+            
+            // Update active button
+            document.querySelectorAll('.timeframe-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`tf-${tf}`).classList.add('active');
+            
+            // Reload chart with new timeframe
+            updateTradingViewChart(asset.symbol, tf);
+        }
+        
+        function updateTradingViewChart(symbol, interval) {
+            interval = interval || currentTimeframe;
             const chartContainer = document.getElementById('tradingview_chart');
             if (chartContainer) {
                 chartContainer.innerHTML = '';
@@ -1200,7 +1250,7 @@
                     "width": "100%",
                     "height": 500,
                     "symbol": symbol,
-                    "interval": "5",
+                    "interval": interval,
                     "timezone": "America/New_York",
                     "theme": "dark",
                     "style": "1",
